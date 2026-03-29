@@ -1,0 +1,135 @@
+{
+  "name": "mengdian-quizbank-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "跨平台题库刷题桌面应用",
+  "main": "dist/main/index.js",
+  "author": "Codex",
+  "scripts": {
+    "prepare:icons": "node scripts/prepare-icons.mjs",
+    "prepare:assistant-helper": "node scripts/prepare-assistant-helper.mjs",
+    "dev": "pnpm prepare:icons && pnpm prepare:assistant-helper && electron-builder install-app-deps && node scripts/sync-main-assets.mjs && electron-vite dev",
+    "build": "pnpm prepare:icons && pnpm prepare:assistant-helper && electron-vite build && node scripts/sync-main-assets.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
+    "lint": "eslint .",
+    "native:node": "npm rebuild better-sqlite3",
+    "test": "pnpm native:node && vitest run",
+    "test:watch": "pnpm native:node && vitest",
+    "smoke": "pnpm native:node && node --import tsx scripts/smoke-node.ts",
+    "package": "pnpm build && electron-builder --publish never",
+    "package:mac": "pnpm build && electron-builder --mac dmg zip --publish never",
+    "package:win": "pnpm build && electron-builder --win portable zip --publish never",
+    "package:linux": "pnpm build && electron-builder --linux AppImage tar.gz --publish never"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.5.0",
+    "antd": "^5.23.0",
+    "better-sqlite3": "^11.8.1",
+    "dayjs": "^1.11.13",
+    "iconv-lite": "^0.6.3",
+    "jschardet": "^3.1.4",
+    "mammoth": "^1.9.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.0",
+    "xlsx": "^0.18.5",
+    "zod": "^3.24.2",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^3.7.1",
+    "@eslint/js": "^9.23.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.13.14",
+    "@types/react": "^18.3.21",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.3.4",
+    "cross-env": "^7.0.3",
+    "electron": "^35.1.2",
+    "electron-builder": "^26.0.12",
+    "electron-vite": "^3.0.0",
+    "eslint": "^9.23.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "jsdom": "^26.0.0",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.28.0",
+    "vite": "^6.2.3",
+    "vitest": "^3.0.8"
+  },
+  "build": {
+    "appId": "com.mengdian.quizbank.desktop",
+    "productName": "蒙电题库通",
+    "icon": "build/icons/png/icon-1024.png",
+    "artifactName": "${productName}-${version}-${arch}.${ext}",
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "extraResources": [
+      {
+        "from": "build/assistant-helper",
+        "to": "assistant-helper"
+      },
+      {
+        "from": "tools/ocr-runtime/package.json",
+        "to": "ocr-runtime/package.json"
+      },
+      {
+        "from": "tools/ocr-runtime/package-lock.json",
+        "to": "ocr-runtime/package-lock.json"
+      },
+      {
+        "from": "tools/ocr-runtime/node_modules",
+        "to": "ocr-runtime/node_modules"
+      }
+    ],
+    "asar": true,
+    "mac": {
+      "category": "public.app-category.education",
+      "icon": "build/icons/png/icon-1024.png",
+      "artifactName": "${productName}-${version}-${arch}-mac.${ext}",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "icon": "build/icons/icon.ico",
+      "artifactName": "${productName}-${version}-${arch}-win.${ext}",
+      "target": [
+        "portable",
+        "zip"
+      ]
+    },
+    "linux": {
+      "category": "Education",
+      "artifactName": "${productName}-${version}-${arch}-linux.${ext}",
+      "icon": "build/icons/linux",
+      "desktop": {
+        "entry": {
+          "Name": "蒙电题库通",
+          "Comment": "蒙电离线题库刷题桌面应用",
+          "Categories": "Education;",
+          "StartupWMClass": "蒙电题库通"
+        }
+      },
+      "target": [
+        "AppImage",
+        "tar.gz"
+      ]
+    }
+  },
+  "packageManager": "pnpm@10.28.2"
+}

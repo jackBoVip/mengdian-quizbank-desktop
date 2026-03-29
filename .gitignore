@@ -1,0 +1,13 @@
+node_modules
+tools/ocr-runtime/node_modules
+dist
+release
+coverage
+.DS_Store
+.pnpm-store
+playwright-report
+test-results
+tmp
+.idea
+.vscode
+*.log

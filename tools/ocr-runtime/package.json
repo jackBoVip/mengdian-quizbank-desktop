@@ -1,0 +1,8 @@
+{
+  "name": "mengdian-ocr-runtime",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@gutenye/ocr-node": "^1.4.8"
+  }
+}

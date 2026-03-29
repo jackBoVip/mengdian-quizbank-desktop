@@ -9,8 +9,9 @@
   "scripts": {
     "prepare:icons": "node scripts/prepare-icons.mjs",
     "prepare:assistant-helper": "node scripts/prepare-assistant-helper.mjs",
-    "dev": "pnpm prepare:icons && pnpm prepare:assistant-helper && electron-builder install-app-deps && node scripts/sync-main-assets.mjs && electron-vite dev",
-    "build": "pnpm prepare:icons && pnpm prepare:assistant-helper && electron-vite build && node scripts/sync-main-assets.mjs",
+    "prepare:ocr-runtime": "node scripts/prepare-ocr-runtime.mjs",
+    "dev": "pnpm prepare:icons && pnpm prepare:assistant-helper && pnpm prepare:ocr-runtime && electron-builder install-app-deps && node scripts/sync-main-assets.mjs && electron-vite dev",
+    "build": "pnpm prepare:icons && pnpm prepare:assistant-helper && pnpm prepare:ocr-runtime && electron-vite build && node scripts/sync-main-assets.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
     "lint": "eslint .",
     "native:node": "npm rebuild better-sqlite3",

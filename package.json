@@ -20,8 +20,8 @@
     "smoke": "pnpm native:node && node --import tsx scripts/smoke-node.ts",
     "package": "pnpm build && electron-builder --publish never",
     "package:mac": "pnpm build && electron-builder --mac dmg zip --publish never",
-    "package:win": "pnpm build && electron-builder --win portable zip --publish never",
-    "package:linux": "pnpm build && electron-builder --linux AppImage tar.gz --publish never"
+    "package:win": "pnpm build && electron-builder --win nsis portable zip --x64 --publish never",
+    "package:linux": "pnpm build && electron-builder --linux AppImage deb tar.gz --x64 --publish never"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.0",
@@ -110,9 +110,18 @@
       "icon": "build/icons/icon.ico",
       "artifactName": "${productName}-${version}-${arch}-win.${ext}",
       "target": [
+        "nsis",
         "portable",
         "zip"
       ]
+    },
+    "nsis": {
+      "artifactName": "${productName}-Setup-${version}-${arch}-win.${ext}",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable-${version}-${arch}-win.${ext}"
     },
     "linux": {
       "category": "Education",
@@ -128,8 +137,15 @@
       },
       "target": [
         "AppImage",
+        "deb",
         "tar.gz"
       ]
+    },
+    "appImage": {
+      "artifactName": "${productName}-${version}-${arch}-linux.AppImage"
+    },
+    "deb": {
+      "artifactName": "${productName}-${version}-${arch}-linux.deb"
     }
   },
   "packageManager": "pnpm@10.28.2"

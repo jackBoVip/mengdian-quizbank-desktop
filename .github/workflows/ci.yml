@@ -75,6 +75,7 @@ jobs:
             release/*.zip
             release/*.exe
             release/*.AppImage
+            release/*.deb
             release/*.tar.gz
             release/*.blockmap
 

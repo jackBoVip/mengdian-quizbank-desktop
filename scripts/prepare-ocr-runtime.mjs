@@ -21,6 +21,7 @@ const run = (command, args, cwd) =>
   new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       cwd,
+      shell: process.platform === 'win32',
       stdio: 'inherit'
     });
 
@@ -49,7 +50,7 @@ if (existsSync(runtimeModulePath) && !installedFingerprint) {
   process.exit(0);
 }
 
-const npmExecutable = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+const npmExecutable = 'npm';
 console.log('installing ocr runtime dependencies...');
 await run(npmExecutable, ['ci', '--no-audit', '--no-fund'], runtimeRoot);
 await mkdir(join(runtimeRoot, 'node_modules'), { recursive: true });

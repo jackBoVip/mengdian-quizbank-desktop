@@ -5,7 +5,10 @@
   "type": "module",
   "description": "跨平台题库刷题桌面应用",
   "main": "dist/main/index.js",
-  "author": "Codex",
+  "author": {
+    "name": "jackBoVip",
+    "email": "jackbovip@163.com"
+  },
   "scripts": {
     "prepare:icons": "node scripts/prepare-icons.mjs",
     "prepare:assistant-helper": "node scripts/prepare-assistant-helper.mjs",
@@ -125,6 +128,7 @@
     },
     "linux": {
       "category": "Education",
+      "maintainer": "jackBoVip <jackbovip@163.com>",
       "artifactName": "${productName}-${version}-${arch}-linux.${ext}",
       "icon": "build/icons/linux",
       "desktop": {

@@ -147,9 +147,12 @@ const createOcr = (availability: 'granted' | 'missing' = 'granted') =>
     recognizeAtCursor: vi.fn().mockResolvedValue(null)
   }) as never;
 
+const originalPlatform = process.platform;
+
 describe('assistant permission status', () => {
   beforeEach(() => {
     vi.useFakeTimers();
+    Object.defineProperty(process, 'platform', { value: 'darwin' });
     electronMocks.state.accessibilityTrusted = false;
     vi.clearAllMocks();
     electronMocks.getAllWindows.mockReturnValue([]);
@@ -157,6 +160,7 @@ describe('assistant permission status', () => {
   });
 
   afterEach(() => {
+    Object.defineProperty(process, 'platform', { value: originalPlatform });
     vi.useRealTimers();
   });
 

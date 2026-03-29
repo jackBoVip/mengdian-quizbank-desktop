@@ -5,6 +5,8 @@ release
 coverage
 .DS_Store
 .pnpm-store
+build/.clang-module-cache
+build/.swift-module-cache
 playwright-report
 test-results
 tmp

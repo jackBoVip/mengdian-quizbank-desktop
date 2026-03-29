@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { BarChartOutlined, BookOutlined, DatabaseOutlined, FolderOpenOutlined, SettingOutlined } from '@ant-design/icons';
 import { Layout, Menu, Tag } from 'antd';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -26,6 +26,16 @@ export default function App(): JSX.Element {
     void bootstrap();
   }, [bootstrap, isOverlayRoute]);
 
+  const selectedKey = location.pathname.startsWith('/import')
+    ? 'import'
+    : location.pathname.startsWith('/review')
+      ? 'review'
+      : location.pathname.startsWith('/libraries')
+        ? 'libraries'
+        : location.pathname.startsWith('/settings')
+          ? 'settings'
+          : 'home';
+
   if (isOverlayRoute) {
     return (
       <Routes>
@@ -33,14 +43,6 @@ export default function App(): JSX.Element {
       </Routes>
     );
   }
-
-  const selectedKey = useMemo(() => {
-    if (location.pathname.startsWith('/import')) return 'import';
-    if (location.pathname.startsWith('/review')) return 'review';
-    if (location.pathname.startsWith('/libraries')) return 'libraries';
-    if (location.pathname.startsWith('/settings')) return 'settings';
-    return 'home';
-  }, [location.pathname]);
 
   return (
     <Layout className="app-shell">

@@ -9,7 +9,7 @@ const electronMocks = vi.hoisted(() => ({
   registerShortcut: vi.fn(() => true),
   unregisterShortcut: vi.fn(),
   openExternal: vi.fn(),
-  isTrustedAccessibilityClient: vi.fn((_: boolean) => electronMocks.state.accessibilityTrusted)
+  isTrustedAccessibilityClient: vi.fn(() => electronMocks.state.accessibilityTrusted)
 }));
 
 vi.mock('electron', () => {

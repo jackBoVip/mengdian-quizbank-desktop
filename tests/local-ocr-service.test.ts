@@ -1,4 +1,11 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+vi.mock('electron', () => ({
+  app: {
+    isPackaged: false
+  }
+}));
+
 import { normalizeRuntimeLine } from '@main/assistant/LocalOcrService';
 
 describe('local OCR runtime normalization', () => {
